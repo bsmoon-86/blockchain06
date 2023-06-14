@@ -27,10 +27,6 @@ contract Test {
     // 배열 데이터를 생성 
     string[] internal user_list;
 
-    // 구조체를 이용하여 배열을 생성 
-    user_info[] public user_list2;
-
-
     // modifier
     modifier onlyOwner{
         require(msg.sender == owner, "Only owner can call function");
@@ -48,12 +44,14 @@ contract Test {
         string memory _pass, 
         string memory _name, 
         uint8 _age
-    ) public onlyOwner {
+    ) public onlyOwner increament {
         // require(msg.sender == owner, "only owner can call function");
         // mapping 데이터에 매개변수의 값들은 대입
         users[_id].password = _pass;
         users[_id].name = _name;
         users[_id].age = _age;
+        // 배열 데이터에 id값을 추가 
+        user_list.push(_id);
     }
 
     // 유저의 정보를 출력하는 함수 
@@ -69,5 +67,26 @@ contract Test {
             users[_id].name, 
             users[_id].age
         );
+    }
+
+    // count 값을 출력하는 함수
+    function view_count() public view returns(uint){
+        return count;
+    }
+
+    // 배열 데이터를 출력하는 함수
+    function view_list() public view returns(string[] memory){
+        return user_list;
+    }
+
+    // 아이디가 존재하는가? 함수 생성
+    function check_id(
+        string memory _id
+    ) public view returns (bool){
+        if (users[_id].age != 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 } 
