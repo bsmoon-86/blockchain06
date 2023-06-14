@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form 태그
+        유저가 입력한 값을 서버에게 보내준다. 
+     -->
+    <h1>get 방식으로 데이터를 보내기</h1>
+    <form action="/data" method="get">
+        <input type="text" name="_id"><br>
+        <input type="password" name="_pass"><br>
+        <!-- 데이터의 입력이 끝나면 제출 버튼 생성 -->
+        <input type="submit">
+    </form>
+
+    <h1>post 방식으로 데이터를 보내기</h1>
+    <form action="/data2" method="post">
+        <input type="text" name="_id"><br>
+        <input type="password" name="_pass"><br>
+        <input type="submit">
+    </form>
+</body>
+</html>
