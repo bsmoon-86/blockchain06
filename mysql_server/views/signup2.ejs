@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 유저가 데이터를 입력하는 공간 생성 -->
+    <form action="/signup2" method="post">
+        <label>ID</label>
+        <input type="text" name = "_id" value="<%=data%>" readonly><br>
+        <label>PASSWORD</label>
+        <input type="password" name="_pass" required><br>
+        <label>NAME</label>
+        <input type="text" name="_name" required><br>
+        <label>Age</label>
+        <input type="number" name="_age" required><br>
+        <label>LOC</label>
+        <input type="text" name="_loc"><br>
+        <input type="submit" value="회원 가입">
+    </form>
+</body>
+</html>
