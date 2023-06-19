@@ -33,7 +33,15 @@ app.get('/', function(req, res){
 
 // localhost:3000/signup [get]
 app.get('/signup', function(req, res){
-    res.render('signup')
+    const data = req.query.result
+    console.log(data)
+    let output = 0
+    if (data){
+        output = data
+    }
+    res.render('signup', {
+        data : output
+    })
 })
 
 // localhost:3000/signup2 [post]
@@ -149,11 +157,55 @@ app.post('/login', function(req, res){
                     []
                 */
                if(result.length == 0){
-                res.send('로그인 실패')
+                res.redirect("/")
                }else{
-                res.send('로그인 성공')
+                res.redirect('/board')
                }
+            }
+        }
+    )
+})
 
+// localhost:3000/board [get]
+app.get('/board', function(req, res){
+    res.render('board')
+})
+
+// localhost:3000/add_content [get]
+app.get('/add_content', function(req, res){
+    res.render('add_content')
+})
+
+// localhost:3000/add_content2 [post]
+app.post('/add_content2', function(req, res){
+    // 유저가 입력한 데이터를 변수에 대입 & 확인
+    const input_title = req.body._title
+    const input_content = req.body._content
+    console.log(input_title, input_content)
+
+    const sql = `
+        insert 
+        into 
+        board(
+            title, 
+            content
+        )
+        values (
+            ?, ?
+        )
+    `
+    const values = [input_title, input_content]
+
+    connection.query(
+        sql, 
+        values, 
+        function(e, result){
+            if(e){
+                console.log(e)
+                res.send(e)
+            }else{
+                console.log(result)
+                res.redirect('/board')
             }
         }
     )

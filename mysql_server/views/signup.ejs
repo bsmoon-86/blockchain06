@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        function check(){
+            alert("사용할 수 없는 아이디입니다.")
+        }
+    </script>
 </head>
-<body>
+<%if (data == 'false'){%>
+    <body onload="check()">
+<%}else{%>
+    <body>
+<%}%>
     <!-- 유저가 아이디를 입력하는 공간  -->
     <form action="/check_id" method="get">
         <label>ID</label>
