@@ -168,7 +168,27 @@ app.post('/login', function(req, res){
 
 // localhost:3000/board [get]
 app.get('/board', function(req, res){
-    res.render('board')
+    // sql server에 있는 board table의 정보를 로드 
+    sql = `
+        select 
+        * 
+        from 
+        board
+    `
+    connection.query(
+        sql, 
+        function(err, result){
+            if(err){
+                console.log(err)
+                res.send(err)
+            }else{
+                // result는 데이터의 형태가 [{}, {}, ....]
+                res.render('board', {
+                    data : result
+                })
+            }
+        }
+    )
 })
 
 // localhost:3000/add_content [get]
@@ -206,6 +226,38 @@ app.post('/add_content2', function(req, res){
             }else{
                 console.log(result)
                 res.redirect('/board')
+            }
+        }
+    )
+})
+
+// localhost:3000/view_content [get]
+app.get("/view_content/:_no", function(req, res){
+    const input_no = req.params._no
+    console.log(input_no)
+
+    const sql = `
+        select 
+        * 
+        from 
+        board
+        where 
+        no = ?
+    `
+    const values = [input_no]
+
+    connection.query(
+        sql, 
+        values, 
+        function(err, result){
+            if(err){
+                console.log(err)
+                res.send(err)
+            }else{
+                // result 형태 : [{}]
+                res.render('view_content', {
+                    data : result[0]
+                })
             }
         }
     )

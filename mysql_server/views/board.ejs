@@ -8,9 +8,45 @@
         function add_content(){
             location.href = "/add_content"
         }
+        function view(no){
+            location.href = "/view_content/"+no
+        }
     </script>
 </head>
 <body>
     <button onclick="add_content()">글 쓰기</button>
+    <!-- 글의 목록 -->
+    <table border="1">
+        <tr>
+            <th>글 번호</th>
+            <th>글 제목</th>
+        </tr>
+        <%for (var i = 0; i < data.length; i++){%>
+            <tr>
+                <td><%=data[i]['no']%></td>
+                <td onclick="view('<%=data[i].no%>')"><%=data[i]['title']%></td>
+            </tr>
+        <%}%>
+    </table>
 </body>
 </html>
+
+<!-- 
+                data 변수의 형태 
+                [
+                    {
+                        'no' : 1, 
+                        'title' : test, 
+                        'content' : xxxxx, 
+                        'writer' : xxxx, 
+                        'create_dt' : xxxxx
+                    },
+                    {
+                        'no' : xx, 
+                        'title' : xxxxx, 
+                        'content' : xxxxx, 
+                        'writer' : xxxx, 
+                        'create_dt' : xxxxx
+                    }
+                ]
+            -->
