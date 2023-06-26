@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "caver-js-ext-kas": "^1.12.0",
+    "fs": "^0.0.1-security"
+  }
+}
