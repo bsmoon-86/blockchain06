@@ -47,7 +47,7 @@ async function create_token(_name, _symbol, _decimal, _amount){
     // json을 문자형을 변환
     const data = JSON.stringify(kip7_address)
     // JSON 파일의 형태로 저장
-    fs.writeFileSync('kip7.json', data)
+    fs.writeFileSync('./token/kip7.json', data)
     return '토큰 발행 완료'
 }
 

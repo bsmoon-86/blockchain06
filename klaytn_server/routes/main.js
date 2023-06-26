@@ -117,5 +117,23 @@ module.exports = function(){
         }
     })
 
+    router.get('/info', async function(req, res){
+        // 로그인을 한 지갑의 토큰의 양을 로드 
+        // kip7.js에 있는 balance_of() 함수를 호출
+        if(!req.session.logined){
+            res.redirect('/')
+        }else{
+            const wallet = req.session.logined.wallet
+            console.log(wallet)
+            const balance = await token.balance_of(wallet)
+            console.log(balance)
+            res.render('info.ejs', {
+                // 유저의 phone, wallet, 토큰의 양
+                'user' : req.session.logined, 
+                'balance' : balance
+            })
+        }
+    })
+
     return router
 }

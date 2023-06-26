@@ -39,5 +39,25 @@ module.exports = function(){
         res.send(receipt)
     })
 
+    // 로그인을 한 유저의 지갑에 토큰을 거래하는 api 
+    router.get('/charge', async function(req, res){
+        if(!req.session.logined){
+            res.redirect('/')
+        }else{
+            // 유저가 보낸 데이터를 변수에 대입, 확인
+            const input_amount = Number(req.query._amount)
+            console.log(input_amount)
+
+            const wallet = req.session.logined.wallet
+            console.log(wallet)
+    
+            // kip7.js에 있는 transfer() 호출
+            const receipt = await token.transfer(wallet, input_amount)
+            console.log(receipt)
+            res.redirect("/")
+
+        }
+    })
+
     return router
 }
