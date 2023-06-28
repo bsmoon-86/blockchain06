@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('header.ejs') %>
+</head>
+<body>
+    
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item">Title : <%=data['0']%></li>
+            <li class="list-group-item">Content : <%=data['1']%></li>
+            <li class="list-group-item">Writer : <%=data['2']%></li>
+            <li class="list-group-item">Image : <img src="/upload/<%=data['3']%>"></li>
+            <li class="list-group-item">Crate_dt : <%=data['4']%></li>
+        </ul>
+        <button onclick="location.href = '/contract'" class="btn btn-danger">글 목록</button>
+        <button onclick="window.history.back()" class="btn">뒤로 가기</button>
+    </div>
+</body>
+</html>

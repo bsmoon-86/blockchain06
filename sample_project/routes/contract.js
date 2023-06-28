@@ -6,6 +6,24 @@ const router = express.Router()
 // moment 모듈 로드 
 const moment = require('moment')
 
+// 파일업로드시 사용하는 모듈 (multer)
+const multer = require('multer')
+
+const storage = multer.diskStorage(
+    {
+        destination : function(req, file, cb){
+            cb(null, 'public/upload/')
+        }, 
+        filename : function(req, file, cb){
+            cb(null, file.originalname)
+        }
+    }
+)
+
+const upload = multer({
+    storage : storage
+})
+
 // baobab network에 배포한 컨트렉트를 연동하기위한 모듈을 로드 
 const Caver = require('caver-js')
 // 컨트렉트의 정보 로드 
@@ -68,12 +86,12 @@ module.exports = function(){
 
     // 글의 내용들을 contract를 이용하여 저장하는 api
     // localhost:3000/contract/add2 [post]
-    router.post('/add2', async function(req, res){
+    router.post('/add2', upload.single('_image') ,async function(req, res){
         // 유저가 보낸 데이터를 변수에 대입, 확인
         const input_title = req.body._title
         const input_content = req.body._content
         const input_writer = account.address
-        const input_image = req.body._image
+        const input_image = req.file.filename
         console.log(input_title, input_content, input_writer, input_image)
         // 현재 시간이 필요
         let date = moment()
@@ -98,6 +116,23 @@ module.exports = function(){
                         )
         console.log(receipt)
         res.redirect("/contract")
+    })
+
+    // 글의 상세정보를 보여주는 페이지 api
+    // localhost:3000/contract/view [get]
+    router.get('/view/:_no', async function(req, res){
+        const input_no = req.params._no
+        console.log(input_no)
+        
+        const data = await smartcontract
+                    .methods
+                    .view_content(input_no)
+                    .call()
+
+        res.render('view_content.ejs', {
+            'data' : data
+        })
+
     })
 
 

@@ -21,7 +21,7 @@
     ] -->
     <div class="container">
         <div class="container">
-            <button onclick="location.href = '/contract/add'">
+            <button onclick="location.href = '/contract/add'" class="btn btn-primary">
                 글쓰기
             </button>
         </div>
@@ -42,7 +42,7 @@
                 <%for (let i =0; i < data.length; i++){%>
                     <tr>
                         <td><%=i+1%></td>
-                        <td><%=data[i]['0']%></td>
+                        <td><a href="/contract/view/<%=i%>"><%=data[i]['0']%></a></td>
                         <td><%=data[i]['2']%></td>
                         <td><%=data[i]['4']%></td>
                     </tr>

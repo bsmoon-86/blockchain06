@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="/contract/add2" method="post">
+        <form action="/contract/add2" method="post" enctype="multipart/form-data">
             <span class="input-group-text" id="basic1">Title</span>
             <input type="text" name="_title" class="form-control" aria-describedby="basic1">
             
@@ -19,7 +19,7 @@
             <input type="text" name="_writer" class="form-control" aria-describedby="basic3">
             
             <span class="input-group-text" id="basic4">Image</span>
-            <input type="text" name="_image" class="form-control" aria-describedby="basic4">
+            <input type="file" name="_image" class="form-control" aria-describedby="basic4">
         
             <input type="submit" value="글 등록" class="btn btn-primary">
         </form>
