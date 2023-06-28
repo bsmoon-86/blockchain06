@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('header.ejs')%>
+</head>
+<body>
+    <!-- 글목록 table -->
+    <!-- 서버에서 글목록 data라는 변수에 담아서 유저에게 보내 준 상황
+    data 변수의 데이터 타입 : list
+    [
+        {
+            '0' : title,
+            '1' : content, 
+            '2' : writer, 
+            '3' : image, 
+            '4' : create_dt
+        }, ....
+    ] -->
+    <div class="container">
+        <div class="container">
+            <button onclick="location.href = '/contract/add'">
+                글쓰기
+            </button>
+        </div>
+        <table class="table table-dark">
+            <tr>
+                <th>No</th>
+                <th>Title</th>
+                <th>Writer</th>
+                <th>Create_dt</th>
+            </tr>
+            <!-- 데이터가 존재하지 않는다면 -->
+            <%if (data.length == 0) {%>
+                <tr>
+                    <td colspan="4">저장된 게시글이 존재하지 않습니다.</td>
+                </tr>
+            <%}else{%>
+                <!-- 데이터가 존재하는 경우 -->
+                <%for (let i =0; i < data.length; i++){%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%=data[i]['0']%></td>
+                        <td><%=data[i]['2']%></td>
+                        <td><%=data[i]['4']%></td>
+                    </tr>
+                <%}
+            }%>
+        </table>
+    </div>
+</body> 
+</html>
