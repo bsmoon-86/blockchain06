@@ -55,7 +55,7 @@ app.post('/data', function(req, res){
             }else{
                 console.log(result)
                 res.json({
-                    'data' : result
+                    'data' : 'DB insert'
                 })
             }
         }
