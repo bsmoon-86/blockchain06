@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        // $(function(){
+        function a(){
+            $("ul.first")     // ul tag중 class가 first인 태그를 선택
+            .find(".foo")
+            .css('background-color', 'red') // 배경 색을 red 로 변경
+            .end()
+        }
+            
+        // })
+    </script>
+</head>
+<body onload="a()">
+    <ul class="first">
+        <li class="foo">list 1</li>
+        <li>list 2</li>
+        <li class="bar">list 3</li>
+    </ul>
+    <ul class="second">
+        <li class="foo">list 1</li>
+        <li>list 2</li>
+        <li class="bar">list 3</li>
+    </ul>
+    <p class="first">1234</p>
+
+</body>
+</html>

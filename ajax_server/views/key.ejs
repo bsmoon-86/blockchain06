@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <input type="text" id="input1"><br>
+    <input type="password" id="input2"><br>
+    <button>비동기 통신</button>
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <script>
+        $('#input1')        // Tag중 id가 input1인 태그를 선택
+        .keyup(function(){
+            let value = $(this).val()
+            $('#p1').text(value)
+        })
+        $('#input2')        // Tag중 id가 input1인 태그를 선택
+        .keyup(function(){
+            let value = $(this).val()
+            $('#p2').text(value)
+        })
+
+        $('button')
+        .click(function(){
+            let input1 = $('#input1').val()
+            let input2 = $('#input2').val()
+            // 비통신 통신 
+            $.ajax(
+                {
+                    url : '/data', 
+                    method : 'post', 
+                    dataType : 'json', 
+                    data : {
+                        'input1' : input1, 
+                        'input2' : input2 
+                    }
+                }
+            )
+            // 통신이 완료되고 결과값을 받아오는 부분
+            .then(function(result){
+                alert(result)
+                $('#p2').html(result.data)
+            })
+        })
+    </script>
+</body>
+</html>
