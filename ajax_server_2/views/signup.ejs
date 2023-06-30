@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <style>
+        .display{
+            display : none
+        }
+    </style>
+</head>
+<body>
+    <h1>Signup Page</h1>
+    <form action="/signup" method="post">
+        <label>ID</label>
+        <input type="text" name="_id" id="_id">
+        <p id="check_id">ID 중복체크</p>
+        <p id="check_id_result"></p>
+        <!-- id 중복체크를 이용하여 아이디가 사용 가능한 경우에만 div를 표시 -->
+        <div id="info" class="display">
+            <label>Password</label>
+            <input type="password" name="_pass" id="_pass"><br>
+            <label>Confirm Password</label>
+            <input type="password" id="_confirm">
+            <!-- 비밀번호와 비밀번호 확인의 값들이 같은지 확인하여 p태그에 표시  -->
+            <span id="check_pass"></span><br>
+            <label>Name</label>
+            <input type="text" name="_name"><br>
+            <!-- 처음에 제출 버튼은 비활성화 -->
+            <!-- 비밀번호와 비밀번호 확인이 같은 경우에 버튼 활성화 -->
+            <input type="submit" value="회원가입" id="_signup" disabled>
+        </div>
+    </form>
+    <script>
+        $('#check_id')              // check_id라는 id값을 가진 태그를 선택
+        .click(function(){          // 클릭 했을때
+            $.ajax(
+                {
+                    url : '/check_id', 
+                    method : 'post', 
+                    dataType : 'json', 
+                    data : {
+                        '_id' : $('#_id').val()
+                    }
+                }
+            )
+            .done(function(result){
+                alert(result.data)
+                if(result.data == 'Able'){
+                    // 사용이 가능한 아이디라면
+                    // info라는 id값을 가진 태그의 display라는 클래스 값을 삭제한다.
+                    $('#info').toggleClass('display')
+                    // check_id, check_id_result라는 id 값을 가진 태그에 display라는 클래스를 추가한다. 
+                    $('#check_id').toggleClass('display')
+                    $('#check_id_result').toggleClass('display')
+                    // _id라는 id값을 가진 태그를 수정이 불가능 하도록 변경한다. 
+                    $('#_id').attr('readonly', true)
+                }else if(result.data == 'Disable'){
+                    // 사용이 불가능한 아이디라면 
+                    // check_id_result라는 id 값을 가진 태그에 'id 사용이 불가능합니다' text를 추가
+                    $('#check_id_result').text('id 사용이 불가능합니다.')
+                }else{
+                    // 에러가 발생한다면 
+                    // check_id_result라는 id 값을 가진 태그에 '다시 시도 바랍니다' text를 추가
+                    $('#check_id_result').text('다시 시도 바랍니다.')
+                }
+            })
+
+            $('#_confirm')      //id값이 _confirm인 태그를 선택
+            .keyup(function(){  //값을 입력할때
+                // _pass라는 id 값을 가진 태그의 value값을 pass 변수에 대입
+                let pass = $('#_pass').val()
+                // _confirm라는 id 값을 가진 태그의 value값을 confirm 변수에 대입
+                let confirm = $(this).val()
+
+                // 두개의 변수가 같다면 _signup이라는 id 값을 가진 태그를 활성화
+                // 같지 않다면 _signup이라는 id 값을 가진 태그를 비활성화
+                if(pass == confirm){
+                    $('#_signup').attr('disabled', false)
+                }else{
+                    $('#_signup').attr('disabled', true)
+                }
+
+            })
+        })
+    </script>
+
+</body>
+</html>
